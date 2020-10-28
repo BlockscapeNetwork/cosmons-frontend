@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BankBalancesResponse, BroadcastMode, LcdClient, setupAuthExtension, setupBankExtension, SigningCosmosClient } from "@cosmjs/launchpad";
+import { CosmWasmClient } from '@cosmjs/cosmwasm';
 declare let window: any;
 declare let document: any;
 
@@ -7,7 +8,6 @@ export interface ExBankBalancesResponse {
   address: String,
   balance: BankBalancesResponse
 }
-
 @Injectable({
   providedIn: 'root'
 })
@@ -19,6 +19,8 @@ export class TransferService {
     setupBankExtension
   );
   chainId = "hackatom-wasm";
+
+  wasmClient = new CosmWasmClient("http://127.0.0.1:1317", BroadcastMode.Block)
 
 
   constructor() {
@@ -164,6 +166,18 @@ export class TransferService {
     response.address = accounts[0].address;
     response.balance = await this.client.bank.balances(accounts[0].address);
     return response;
+  }
+
+  queryMonster(cont_addr: string, token_id: string): Promise<any> {
+    return this.wasmClient.queryContractSmart(cont_addr, { nft_info: { token_id } });
+  }
+
+  queryAllInfoMonster(cont_addr: string, token_id: string): Promise<any> {
+    return this.wasmClient.queryContractSmart(cont_addr, { all_nft_info: { token_id } });
+  }
+
+  queryNumOfMonster(cont_addr: string): Promise<any> {
+    return this.wasmClient.queryContractSmart(cont_addr, { num_tokens: {} })
   }
 
 }

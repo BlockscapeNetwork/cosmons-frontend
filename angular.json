@@ -32,7 +32,8 @@
               "src/styles.scss"
             ],
             "allowedCommonJsDependencies": [
-              "@cosmjs/launchpad"
+              "@cosmjs/launchpad",
+              "@cosmjs/cosmwasm"
             ],
             "scripts": []
           },
