@@ -172,12 +172,16 @@ export class TransferService {
     return this.wasmClient.queryContractSmart(cont_addr, { nft_info: { token_id } });
   }
 
-  queryAllInfoMonster(cont_addr: string, token_id: string): Promise<any> {
+  queryAllMonsterInfo(cont_addr: string, token_id: string): Promise<any> {
     return this.wasmClient.queryContractSmart(cont_addr, { all_nft_info: { token_id } });
   }
 
   queryNumOfMonster(cont_addr: string): Promise<any> {
     return this.wasmClient.queryContractSmart(cont_addr, { num_tokens: {} })
+  }
+
+  queryAllMonsterAddr(cont_addr: string): Promise<any> {
+    return this.wasmClient.queryContractSmart(cont_addr, { all_tokens: {} })
   }
 
 }

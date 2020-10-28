@@ -14,8 +14,10 @@ export class MonsterDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.transferService.getAccount().then((value) => { this.acc = value });
     this.transferService.queryMonster('cosmos1pgvk0pzmmrz5syz3dxxfav39pe8h5unxdrx5e0', 'monster112a9lf95atqvyejqe22xnna8x4mfqd75tkq2kvwcjyysarcsb').then((value) => { console.log(JSON.stringify(value)) });
-    this.transferService.queryAllInfoMonster('cosmos1pgvk0pzmmrz5syz3dxxfav39pe8h5unxdrx5e0', 'monster112a9lf95atqvyejqe22xnna8x4mfqd75tkq2kvwcjyysarcsb').then((value) => { console.log(JSON.stringify(value)) });
+    this.transferService.queryMonster('cosmos1pgvk0pzmmrz5syz3dxxfav39pe8h5unxdrx5e0', 'monster112a9lf95atqvyejqe22xnna8x4mfqd75tkq2kvwcjyysarcsx').then((value) => { console.log(JSON.stringify(value)) });
+    this.transferService.queryAllMonsterInfo('cosmos1pgvk0pzmmrz5syz3dxxfav39pe8h5unxdrx5e0', 'monster112a9lf95atqvyejqe22xnna8x4mfqd75tkq2kvwcjyysarcsb').then((value) => { console.log(JSON.stringify(value)) });
     this.transferService.queryNumOfMonster('cosmos1pgvk0pzmmrz5syz3dxxfav39pe8h5unxdrx5e0').then((value) => { console.log(JSON.stringify(value)) });
+    this.transferService.queryAllMonsterAddr('cosmos1pgvk0pzmmrz5syz3dxxfav39pe8h5unxdrx5e0').then((value) => { console.log(JSON.stringify(value)) });
   }
 
 }
