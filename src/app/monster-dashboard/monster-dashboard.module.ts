@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MonsterRoutingModule } from './monster-dashboard-routing.module';
 import { MonsterDashboardComponent } from './pages/monster-dashboard/monster-dashboard.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { MatCardModule } from '@angular/material/card';
   imports: [
     CommonModule,
     MonsterRoutingModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule
   ],
   exports: [],
   providers: []
