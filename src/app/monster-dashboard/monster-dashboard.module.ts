@@ -12,7 +12,7 @@ import { MonsterDashboardComponent } from './pages/monster-dashboard/monster-das
     CommonModule,
     MonsterRoutingModule
   ],
-  exports: [MonsterDashboardComponent],
-  providers: [TransferService]
+  exports: [],
+  providers: []
 })
 export class MonsterDashboardModule { }

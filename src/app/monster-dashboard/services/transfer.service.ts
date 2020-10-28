@@ -1,15 +1,27 @@
 import { Injectable } from '@angular/core';
-import { BroadcastMode, LcdClient, setupAuthExtension } from "@cosmjs/launchpad";
+import { BankBalancesResponse, BroadcastMode, LcdClient, setupAuthExtension, setupBankExtension, SigningCosmosClient } from "@cosmjs/launchpad";
 declare let window: any;
 declare let document: any;
+
+interface ExBankBalancesResponse {
+  address: String,
+  balance: BankBalancesResponse
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransferService {
+  private enable: any;
+  client = LcdClient.withExtensions(
+    { apiUrl: "http://127.0.0.1:1317", broadcastMode: BroadcastMode.Block },
+    setupAuthExtension,
+    setupBankExtension
+  );
+  chainId = "hackatom-wasm";
+
 
   constructor() {
-    const SigningCosmosClient = LcdClient;
 
     window.onload = async () => {
       // Keplr extension injects the offline signer that is compatible with cosmJS.
@@ -29,19 +41,19 @@ export class TransferService {
             // If the same chain id is already registered, it will resolve and not require the user interactions.
             await window.keplr.experimentalSuggestChain({
               // Chain-id of the Cosmos SDK chain.
-              chainId: "cosmoshub-3",
+              chainId: "hackatom-wasm",
               // The name of the chain to be displayed to the user.
-              chainName: "Cosmos",
+              chainName: "hackatom-wasm",
               // RPC endpoint of the chain.
-              rpc: "https://node-cosmoshub-3.keplr.app/rpc",
+              rpc: "https://rpc.cosmwasm.hub.hackatom.dev",
               // REST endpoint of the chain.
-              rest: "https://node-cosmoshub-3.keplr.app/rest",
+              rest: "http://127.0.0.1:1317",
               // Staking coin information
               stakeCurrency: {
                 // Coin denomination to be displayed to the user.
-                coinDenom: "ATOM",
+                coinDenom: "COSM",
                 // Actual denom (i.e. uatom, uscrt) used by the blockchain.
-                coinMinimalDenom: "uatom",
+                coinMinimalDenom: "ucosm",
                 // # of decimal points to convert minimal denomination to user-facing denomination.
                 coinDecimals: 6,
                 // (Optional) Keplr can show the fiat value of the coin if a coingecko id is provided.
@@ -78,9 +90,9 @@ export class TransferService {
               // List of all coin/tokens used in this chain.
               currencies: [{
                 // Coin denomination to be displayed to the user.
-                coinDenom: "ATOM",
+                coinDenom: "COSM",
                 // Actual denom (i.e. uatom, uscrt) used by the blockchain.
-                coinMinimalDenom: "uatom",
+                coinMinimalDenom: "ucosm",
                 // # of decimal points to convert minimal denomination to user-facing denomination.
                 coinDecimals: 6,
                 // (Optional) Keplr can show the fiat value of the coin if a coingecko id is provided.
@@ -90,9 +102,9 @@ export class TransferService {
               // List of coin/tokens used as a fee token in this chain.
               feeCurrencies: [{
                 // Coin denomination to be displayed to the user.
-                coinDenom: "ATOM",
+                coinDenom: "COSM",
                 // Actual denom (i.e. uatom, uscrt) used by the blockchain.
-                coinMinimalDenom: "uatom",
+                coinMinimalDenom: "ucosm",
                 // # of decimal points to convert minimal denomination to user-facing denomination.
                 coinDecimals: 6,
                 // (Optional) Keplr can show the fiat value of the coin if a coingecko id is provided.
@@ -123,79 +135,35 @@ export class TransferService {
         }
       }
 
-      const chainId = "cosmoshub-3";
-
       // You should request Keplr to enable the wallet.
       // This method will ask the user whether or not to allow access if they haven't visited this website.
       // Also, it will request user to unlock the wallet if the wallet is locked.
       // If you don't request enabling before usage, there is no guarantee that other methods will work.
-      await window.keplr.enable(chainId);
-
-      const offlineSigner = window.getOfflineSigner(chainId);
+      await window.keplr.enable(this.chainId);
+      // const offlineSigner = window.getOfflineSigner(this.chainId);
 
       // You can get the address/public keys by `getAccounts` method.
       // It can return the array of address/public key.
       // But, currently, Keplr extension manages only one address/public key pair.
       // XXX: This line is needed to set the sender address for SigningCosmosClient.
-      const accounts = await offlineSigner.getAccounts();
+      // const accounts = await offlineSigner.getAccounts();
 
       // Initialize the gaia api with the offline signer that is injected by Keplr extension.
-      const cosmJS = SigningCosmosClient.withExtensions(
-        { apiUrl: "https://node-cosmoshub-3.keplr.app/rest", broadcastMode: BroadcastMode.Block },
-        //accounts[0].address,
-        setupAuthExtension,
-      );
-      /*       const { account_number, sequence } = (
-              await SigningCosmosClient.auth.account(accounts[0].address)
-            ).result.value; */
-
-      document.getElementById("address").append(accounts[0].address);
-    };
-
-    document.sendForm.onsubmit = () => {
-      let recipient = document.sendForm.recipient.value;
-      let amount = document.sendForm.amount.value;
-
-      amount = parseFloat(amount);
-      if (isNaN(amount)) {
-        alert("Invalid amount");
-        return false;
-      }
-
-      amount *= 1000000;
-      amount = Math.floor(amount);
-
-      (async () => {
-        // See above.
-        const chainId = "cosmoshub-3";
-        await window.keplr.enable(chainId);
-        const offlineSigner = window.getOfflineSigner(chainId);
-
-        const accounts = await offlineSigner.getAccounts();
-
-        // Initialize the gaia api with the offline signer that is injected by Keplr extension.
-        const cosmJS = SigningCosmosClient.withExtensions(
-          { apiUrl: "https://node-cosmoshub-3.keplr.app/rest" },
-          accounts[0].address,
-          offlineSigner,
-        );
-
-        /*         const result = await cosmJS.signbroadcastTx([{
-                  denom: "uatom",
-                  amount: amount.toString(),
-                }]);
-        
-                console.log(result);
-        
-                if (result.code !== undefined &&
-                  result.code !== 0) {
-                  alert("Failed to send tx: " + result.log || result.rawLog);
-                } else {
-                  alert("Succeed to send tx");
-                }
-                */
-      })();
-      return false;
-    };
+      // const cosmJS = new SigningCosmosClient(
+      //   "http://127.0.0.1:1317",
+      //   accounts[0].address,
+      //   offlineSigner,
+      // );
+    }
   }
+
+  async getAccount(): Promise<ExBankBalancesResponse> {
+    const response: ExBankBalancesResponse = <ExBankBalancesResponse>{};
+    const offlineSigner = window.getOfflineSigner(this.chainId);
+    const accounts = await offlineSigner.getAccounts();
+    response.address = accounts[0].address;
+    response.balance = await this.client.bank.balances(accounts[0].address);
+    return response;
+  }
+
 }
