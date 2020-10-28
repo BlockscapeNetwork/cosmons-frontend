@@ -1,1 +1,9 @@
-<p>menu-bar works!</p>
+<button mat-button [matMenuTriggerFor]="menu">Cosmons Game and Marketplace</button>
+<!-- #enddocregion mat-menu-trigger-for -->
+<mat-menu #menu="matMenu">
+  <button mat-menu-item [routerLink]="['/home']">Home</button>
+  <button mat-menu-item [routerLink]="['/home/howtoplay']">How to Play</button>
+  <button mat-menu-item [routerLink]="['/home/gameowner']">Game Owner</button>
+</mat-menu>
+Your Contract: xyz
+<router-outlet></router-outlet>
