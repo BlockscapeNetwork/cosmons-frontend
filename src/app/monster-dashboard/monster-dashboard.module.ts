@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MonsterRoutingModule } from './monster-dashboard-routing.module';
-import { TransferService } from './services/transfer.service';
 import { MonsterDashboardComponent } from './pages/monster-dashboard/monster-dashboard.component';
-
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
   declarations: [MonsterDashboardComponent],
   imports: [
     CommonModule,
-    MonsterRoutingModule
+    MonsterRoutingModule,
+    MatCardModule
   ],
   exports: [],
   providers: []

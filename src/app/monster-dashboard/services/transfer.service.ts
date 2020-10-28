@@ -3,7 +3,7 @@ import { BankBalancesResponse, BroadcastMode, LcdClient, setupAuthExtension, set
 declare let window: any;
 declare let document: any;
 
-interface ExBankBalancesResponse {
+export interface ExBankBalancesResponse {
   address: String,
   balance: BankBalancesResponse
 }

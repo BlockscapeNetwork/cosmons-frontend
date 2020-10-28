@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TransferService } from '../../services/transfer.service';
+import { TransferService, ExBankBalancesResponse } from '../../services/transfer.service';
 
 @Component({
   selector: 'app-monster-dashboard',
@@ -7,12 +7,12 @@ import { TransferService } from '../../services/transfer.service';
   styleUrls: ['./monster-dashboard.component.scss']
 })
 export class MonsterDashboardComponent implements OnInit {
-  acc: string;
+  acc: ExBankBalancesResponse;
   constructor(private transferService: TransferService) {
   }
 
   ngOnInit(): void {
-    this.transferService.getAccount().then((value) => { console.log(JSON.stringify(value)) });
+    this.transferService.getAccount().then((value) => { this.acc = value });
   }
 
 }
