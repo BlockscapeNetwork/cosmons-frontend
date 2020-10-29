@@ -1,0 +1,13 @@
+@mixin define-custom-property($name, $value) {
+  #{custom-property-name($name)}: $value;
+}
+
+
+.monster-card {
+  max-width: 250px;
+}
+
+.monster-header-image {
+  background-image: url('https://robohash.org/{{monsterInfo.access.owner}}');
+  background-size: cover;
+}

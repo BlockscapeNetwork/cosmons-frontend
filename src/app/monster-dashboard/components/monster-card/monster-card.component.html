@@ -1,0 +1,23 @@
+<mat-card class="monster-card">
+  <mat-card-header>
+    <div mat-card-avatar class="monster-header-image"></div>
+    <mat-card-title>{{monsterInfo.info.name}}</mat-card-title>
+    <mat-card-subtitle>Monster Lv: {{monsterInfo.info.level}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="https://robohash.org/{{monsterInfo.address}}"
+    alt="Photo of a Shiba Inu">
+  <mat-card-content>
+    Owner:
+    <div style="font-size: x-small;">
+      {{monsterInfo.access.owner}}
+    </div>
+    Description:
+    <p>
+      {{monsterInfo.info.description}}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>Sell</button>
+    <button mat-button>Battle</button>
+  </mat-card-actions>
+</mat-card>
