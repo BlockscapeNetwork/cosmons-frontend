@@ -1,8 +1,14 @@
-<mat-card>
-  Account: {{acc?.address}}
-  <br>
-  Balance: {{acc?.balance.result[0].amount}} ucosm
-</mat-card>
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile>
+    <mat-card>
+      Your Contract: cosmos1pgvk0pzmmrz5syz3dxxfav39pe8h5unxdrx5e0
+      <br>
+      Account: {{acc?.address}}
+      <br>
+      Balance: {{acc?.balance.result[0].amount}} ucosm
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
 <br>
 <mat-grid-list cols="2" rowHeight="650px">
   <mat-grid-tile *ngFor="let monster of monsterInfoArr">

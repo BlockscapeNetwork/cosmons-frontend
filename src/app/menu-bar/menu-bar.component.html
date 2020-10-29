@@ -1,9 +1,12 @@
-<button mat-button [matMenuTriggerFor]="menu">Cosmons Game and Marketplace</button>
+<button mat-button [matMenuTriggerFor]="menu">
+  <span class="material-icons">
+    menu
+  </span> 
+  Cosmons Game</button>
 <!-- #enddocregion mat-menu-trigger-for -->
 <mat-menu #menu="matMenu">
   <button mat-menu-item [routerLink]="['/home']">Home</button>
   <button mat-menu-item [routerLink]="['/home/howtoplay']">How to Play</button>
   <button mat-menu-item [routerLink]="['/home/gameowner']">Game Owner</button>
 </mat-menu>
-Your Contract: cosmos1pgvk0pzmmrz5syz3dxxfav39pe8h5unxdrx5e0
 <router-outlet></router-outlet>
