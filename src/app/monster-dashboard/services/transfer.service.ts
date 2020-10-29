@@ -1,6 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BankBalancesResponse, BroadcastMode, LcdClient, setupAuthExtension, setupBankExtension, SigningCosmosClient } from "@cosmjs/launchpad";
-import { CosmWasmClient } from '@cosmjs/cosmwasm';
+import {
+  BankBalancesResponse,
+  BroadcastMode,
+  LcdClient,
+  setupAuthExtension,
+  setupBankExtension,
+  SigningCosmosClient,
+  BroadcastTxResult,
+  StdFee,
+  coins,
+} from "@cosmjs/launchpad";
+import { CosmWasmClient, MsgExecuteContract } from '@cosmjs/cosmwasm';
 declare let window: any;
 declare let document: any;
 
@@ -182,6 +192,29 @@ export class TransferService {
 
   queryAllMonsterAddr(cont_addr: string): Promise<any> {
     return this.wasmClient.queryContractSmart(cont_addr, { all_tokens: {} })
+  }
+
+  async mintMonster(cont_addr: string, token_id: string, name: string, level: number, description: string, image: any): Promise<BroadcastTxResult> {
+    const offlineSigner = window.getOfflineSigner(this.chainId);
+    const accounts = await offlineSigner.getAccounts();
+    const owner = accounts[0].address;
+    const fee: StdFee = {
+      amount: coins(5000000, "ucosm"),
+      gas: "89000000",
+    };
+    const msg: MsgExecuteContract = {
+      type: "wasm/MsgExecuteContract",
+      value: {
+        sender: owner,
+        contract: cont_addr,
+        msg: {
+          mint: { token_id, owner, name, level, description, image }
+        },
+        sent_funds: [],
+      },
+    };
+    const client = new SigningCosmosClient("http://127.0.0.1:1317", accounts[0].address, offlineSigner);
+    return client.signAndBroadcast([msg], fee);
   }
 
 }
