@@ -6,10 +6,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MonsterCardComponent } from './components/monster-card/monster-card.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { GameOwnerComponent } from './pages/game-owner/game-owner.component';
+import { HowToPlayComponent } from './pages/how-to-play/how-to-play.component';
 
 
 @NgModule({
-  declarations: [MonsterDashboardComponent, MonsterCardComponent],
+  declarations: [MonsterDashboardComponent, MonsterCardComponent, GameOwnerComponent, HowToPlayComponent],
   imports: [
     CommonModule,
     MonsterRoutingModule,
