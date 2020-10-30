@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { TransferService } from '../../services/transfer.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-game-owner',
@@ -7,6 +8,13 @@ import { TransferService } from '../../services/transfer.service';
   styleUrls: ['./game-owner.component.scss']
 })
 export class GameOwnerComponent implements OnInit {
+  @ViewChild('monsterAddress', { static: true }) monsterAddress: ElementRef;
+  @ViewChild('monsterName', { static: true }) monsterName: ElementRef;
+  @ViewChild('monsterLevel', { static: true }) monsterLevel: ElementRef;
+  @ViewChild('monsterDescription', { static: true }) monsterDescription: ElementRef;
+  @ViewChild('monsterImage', { static: true }) monsterImage: ElementRef;
+  txOutput: String;
+
 
   constructor(private transferService: TransferService) { }
 
@@ -14,7 +22,16 @@ export class GameOwnerComponent implements OnInit {
   }
 
   createMonster() {
-    this.transferService.mintMonster("cosmos1pgvk0pzmmrz5syz3dxxfav39pe8h5unxdrx5e0", "monster112a9lf34atqv3ejqe22xnna8x4mfqd32tkq2k23wcjywsarcsa", "Lakeuin", 303, "The Lakeuin is the coolest of the six original and distinct spitz breeds of monster from Neptun.", null);
+    this.transferService.mintMonster(
+      environment.contractAddress,
+      this.monsterAddress.nativeElement.value,
+      this.monsterName.nativeElement.value,
+      parseInt(this.monsterLevel.nativeElement.value),
+      this.monsterDescription.nativeElement.value,
+      null).then((value) => {
+        this.txOutput = JSON.stringify(value);
+      }).catch((value) => {
+        this.txOutput = JSON.stringify(value);
+      });
   }
-
 }

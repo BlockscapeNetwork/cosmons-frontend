@@ -8,7 +8,8 @@ import { MonsterCardComponent } from './components/monster-card/monster-card.com
 import { MatGridListModule } from '@angular/material/grid-list';
 import { GameOwnerComponent } from './pages/game-owner/game-owner.component';
 import { HowToPlayComponent } from './pages/how-to-play/how-to-play.component';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [MonsterDashboardComponent, MonsterCardComponent, GameOwnerComponent, HowToPlayComponent],
@@ -17,9 +18,11 @@ import { HowToPlayComponent } from './pages/how-to-play/how-to-play.component';
     MonsterRoutingModule,
     MatCardModule,
     MatButtonModule,
-    MatGridListModule
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
-  exports: [],
+  exports: [MonsterDashboardComponent],
   providers: []
 })
 export class MonsterDashboardModule { }

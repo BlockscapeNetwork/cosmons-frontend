@@ -190,8 +190,9 @@ export class TransferService {
     return this.wasmClient.queryContractSmart(cont_addr, { num_tokens: {} })
   }
 
+  // change limit to dynamic 
   queryAllMonsterAddr(cont_addr: string): Promise<any> {
-    return this.wasmClient.queryContractSmart(cont_addr, { all_tokens: {} })
+    return this.wasmClient.queryContractSmart(cont_addr, { all_tokens: { limit: 1000 } })
   }
 
   async mintMonster(cont_addr: string, token_id: string, name: string, level: number, description: string, image: any): Promise<BroadcastTxResult> {

@@ -1,15 +1,40 @@
-<mat-grid-list cols="2" rowHeight="2:1">
+<mat-grid-list cols="2" rowHeight="1:1">
   <mat-grid-tile>
     <mat-card>
       Create Monster:
+      <br>
+      <mat-form-field hintLabel="Max 75 characters" appearance="fill">
+        <mat-label>Enter Monster Address</mat-label>
+        <input matInput #monsterAddress maxlength="75"
+          placeholder="Ex. monster112a9lf34atqv3ejqe22xnna8x4mfqd32tkq2k23wcjywsarcsa">
+        <mat-hint align="end">{{monsterAddress.value?.length || 0}}/75</mat-hint>
+      </mat-form-field>
+      <br>
+      <mat-form-field hintLabel="Max 15 characters" appearance="fill">
+        <mat-label>Enter Monster Name</mat-label>
+        <input matInput #monsterName maxlength="15" placeholder="Ex. Lakeuin">
+        <mat-hint align="end">{{monsterName.value?.length || 0}}/15</mat-hint>
+      </mat-form-field>
+      <br>
+      <mat-form-field hintLabel="Max 5 characters" appearance="fill">
+        <mat-label>Enter Monster Level</mat-label>
+        <input matInput type="number" #monsterLevel maxlength="5" placeholder="Ex. 102">
+        <mat-hint align="end">{{monsterLevel.value?.length || 0}}/5</mat-hint>
+      </mat-form-field>
+      <br>
+      <mat-form-field hintLabel="Max 200 characters" appearance="fill">
+        <mat-label>Enter Monster Description</mat-label>
+        <input matInput #monsterDescription maxlength="200"
+          placeholder="Ex. The Lakeuin is the tallest of the six original and distinct spitz breeds of monsters from Neptun.">
+        <mat-hint align="end">{{monsterDescription.value?.length || 0}}/200</mat-hint>
+      </mat-form-field>
+      <br>
       <button mat-button (click)="createMonster()">
         Create
       </button>
     </mat-card>
   </mat-grid-tile>
-  <mat-grid-tile>
-    <mat-card>
-      Monster:
-    </mat-card>
-  </mat-grid-tile>
 </mat-grid-list>
+Tx Output:
+<br>
+{{txOutput}}
