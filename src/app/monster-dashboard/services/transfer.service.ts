@@ -11,6 +11,7 @@ import {
   coins,
 } from "@cosmjs/launchpad";
 import { CosmWasmClient, MsgExecuteContract } from '@cosmjs/cosmwasm';
+import { environment } from 'src/environments/environment';
 declare let window: any;
 declare let document: any;
 
@@ -24,13 +25,13 @@ export interface ExBankBalancesResponse {
 export class TransferService {
   private enable: any;
   client = LcdClient.withExtensions(
-    { apiUrl: "http://127.0.0.1:1317", broadcastMode: BroadcastMode.Block },
+    { apiUrl: environment.lightClient, broadcastMode: BroadcastMode.Block },
     setupAuthExtension,
     setupBankExtension
   );
   chainId = "hackatom-wasm";
 
-  wasmClient = new CosmWasmClient("http://127.0.0.1:1317", BroadcastMode.Block)
+  wasmClient = new CosmWasmClient(environment.lightClient, BroadcastMode.Block)
 
 
   constructor() {
@@ -59,7 +60,7 @@ export class TransferService {
               // RPC endpoint of the chain.
               rpc: "https://rpc.cosmwasm.hub.hackatom.dev",
               // REST endpoint of the chain.
-              rest: "http://127.0.0.1:1317",
+              rest: environment.lightClient,
               // Staking coin information
               stakeCurrency: {
                 // Coin denomination to be displayed to the user.
@@ -162,7 +163,7 @@ export class TransferService {
 
       // Initialize the gaia api with the offline signer that is injected by Keplr extension.
       // const cosmJS = new SigningCosmosClient(
-      //   "http://127.0.0.1:1317",
+      //   environment.lightClient,
       //   accounts[0].address,
       //   offlineSigner,
       // );
@@ -224,7 +225,7 @@ export class TransferService {
         sent_funds: [],
       },
     };
-    const client = new SigningCosmosClient("http://127.0.0.1:1317", accounts[0].address, offlineSigner);
+    const client = new SigningCosmosClient(environment.lightClient, accounts[0].address, offlineSigner);
     return client.signAndBroadcast([msg], fee);
   }
 
@@ -247,7 +248,7 @@ export class TransferService {
         sent_funds: [],
       },
     };
-    const client = new SigningCosmosClient("http://127.0.0.1:1317", accounts[0].address, offlineSigner);
+    const client = new SigningCosmosClient(environment.lightClient, accounts[0].address, offlineSigner);
     return client.signAndBroadcast([msg], fee);
   }
 }
