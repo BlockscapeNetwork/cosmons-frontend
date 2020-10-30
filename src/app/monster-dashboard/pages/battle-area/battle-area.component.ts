@@ -19,7 +19,7 @@ export class BattleAreaComponent implements OnInit {
 
   battle() {
     this.transferService.battleMonster(
-      environment.contractAddress,
+      environment.contractAddress721,
       this.monsterAttAddress.nativeElement.value,
       this.monsterDefAddress.nativeElement.value,
     ).then((value) => {

@@ -11,9 +11,10 @@ import { HowToPlayComponent } from './pages/how-to-play/how-to-play.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BattleAreaComponent } from './pages/battle-area/battle-area.component';
+import { MarketplaceComponent } from './pages/marketplace/marketplace.component';
 
 @NgModule({
-  declarations: [MonsterDashboardComponent, MonsterCardComponent, GameOwnerComponent, HowToPlayComponent, BattleAreaComponent],
+  declarations: [MonsterDashboardComponent, MonsterCardComponent, GameOwnerComponent, HowToPlayComponent, BattleAreaComponent, MarketplaceComponent],
   imports: [
     CommonModule,
     MonsterRoutingModule,

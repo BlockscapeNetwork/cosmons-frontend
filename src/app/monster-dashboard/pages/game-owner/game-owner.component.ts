@@ -23,7 +23,7 @@ export class GameOwnerComponent implements OnInit {
 
   createMonster() {
     this.transferService.mintMonster(
-      environment.contractAddress,
+      environment.contractAddress721,
       this.monsterAddress.nativeElement.value,
       this.monsterName.nativeElement.value,
       parseInt(this.monsterLevel.nativeElement.value),

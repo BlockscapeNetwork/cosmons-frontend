@@ -169,6 +169,7 @@ export class TransferService {
     }
   }
 
+  // queries
   async getAccount(): Promise<ExBankBalancesResponse> {
     const response: ExBankBalancesResponse = <ExBankBalancesResponse>{};
     const offlineSigner = window.getOfflineSigner(this.chainId);
@@ -195,6 +196,15 @@ export class TransferService {
     return this.wasmClient.queryContractSmart(cont_addr, { all_tokens: { limit: 1000 } })
   }
 
+  queryCW20Token(cont_addr: string, address: string): Promise<any> {
+    return this.wasmClient.queryContractSmart(cont_addr, { balance: { address } })
+  }
+
+  queryNFTOfferings(cont_addr: string): Promise<any> {
+    return this.wasmClient.queryContractSmart(cont_addr, { get_offerings: {} })
+  }
+
+  // execute
   async mintMonster(cont_addr: string, token_id: string, name: string, level: number, description: string, image: any): Promise<BroadcastTxResult> {
     const offlineSigner = window.getOfflineSigner(this.chainId);
     const accounts = await offlineSigner.getAccounts();
