@@ -218,4 +218,26 @@ export class TransferService {
     return client.signAndBroadcast([msg], fee);
   }
 
+  async battleMonster(cont_addr: string, attacker_id: string, defender_id: string): Promise<BroadcastTxResult> {
+    const offlineSigner = window.getOfflineSigner(this.chainId);
+    const accounts = await offlineSigner.getAccounts();
+    const owner = accounts[0].address;
+    const fee: StdFee = {
+      amount: coins(5000000, "ucosm"),
+      gas: "89000000",
+    };
+    const msg: MsgExecuteContract = {
+      type: "wasm/MsgExecuteContract",
+      value: {
+        sender: owner,
+        contract: cont_addr,
+        msg: {
+          battle_monster: { attacker_id, defender_id }
+        },
+        sent_funds: [],
+      },
+    };
+    const client = new SigningCosmosClient("http://127.0.0.1:1317", accounts[0].address, offlineSigner);
+    return client.signAndBroadcast([msg], fee);
+  }
 }

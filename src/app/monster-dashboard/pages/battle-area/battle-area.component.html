@@ -1,0 +1,36 @@
+<mat-grid-list cols="3" rowHeight="1:1">
+  <mat-grid-tile>
+    <mat-card>
+      Attacker Monster:
+      <br>
+      <mat-form-field hintLabel="Max 75 characters" appearance="fill">
+        <mat-label>Enter NFT Monster Address</mat-label>
+        <input matInput #monsterAttAddress maxlength="75"
+          placeholder="Ex. monster112a9lf34atqv3ejqe22xnna8x4mfqd32tkq2k23wcjywsarcsa">
+        <mat-hint align="end">{{monsterAttAddress.value?.length || 0}}/75</mat-hint>
+      </mat-form-field>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-card>
+      Defender Monster:
+      <br>
+      <mat-form-field hintLabel="Max 75 characters" appearance="fill">
+        <mat-label>Enter NFT Monster Address</mat-label>
+        <input matInput #monsterDefAddress maxlength="75"
+          placeholder="Ex. monster221a9lf34atqv3ejqe22xnna8x4mfqd32tkq2k23wcjywsarcsa">
+        <mat-hint align="end">{{monsterDefAddress.value?.length || 0}}/75</mat-hint>
+      </mat-form-field>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-card>
+      <button mat-button (click)="battle()">
+        Battle !!!
+      </button>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+Tx Output:
+<br>
+{{txOutput}}
