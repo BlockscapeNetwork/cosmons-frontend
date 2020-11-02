@@ -7,7 +7,63 @@
     </mat-card>
   </mat-grid-tile>
 </mat-grid-list>
-
-<button mat-button (click)="sell()">
-  sell !!!
-</button>
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile>
+    <mat-card>
+      Sell your NFT Token:
+      <br>
+      <mat-form-field hintLabel="Max 75 characters" appearance="fill">
+        <mat-label>Enter NFT Monster Address</mat-label>
+        <input matInput #monsterAddress maxlength="75"
+          placeholder="Ex. monster112a9lf34atqv3ejqe22xnna8x4mfqd32tkq2k23wcjywsarcsa">
+        <mat-hint align="end">{{monsterAddress.value?.length || 0}}/75</mat-hint>
+      </mat-form-field>
+      <br>
+      <mat-form-field hintLabel="Max 15 characters" appearance="fill">
+        <mat-label>Enter Monster Price</mat-label>
+        <input matInput #monsterPrice maxlength="15" placeholder="Ex. 100">
+        <mat-hint align="end">{{monsterPrice.value?.length || 0}}/15</mat-hint>
+      </mat-form-field>
+      <br>
+      <button mat-button (click)="sell()">
+        Sell
+      </button>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-card>
+      Withdraw/return Offer:
+      <br>
+      <mat-form-field hintLabel="Max 15 characters" appearance="fill">
+        <mat-label>Enter Offering ID</mat-label>
+        <input matInput #offeringId maxlength="15" placeholder="Ex. 100">
+        <mat-hint align="end">{{offeringId.value?.length || 0}}/15</mat-hint>
+      </mat-form-field>
+      <br>
+      <button mat-button (click)="withdraw()">
+        Withdraw
+      </button>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile *ngFor="let offer of offerings">
+    <mat-card>
+      Offer ID: {{offer.id}}
+      <br>
+      Token ID: {{offer.token_id}}
+      <br>
+      List Price: {{offer.list_price.amount}}
+      <br>
+      List Address: {{offer.list_price.address}}
+      <br>
+      Contract Address: {{offer.contract_addr}}
+      <br>
+      Seller Address: {{offer.seller}}
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+<br>
+Tx Output:
+<br>
+{{txOutput}}

@@ -234,8 +234,8 @@ export class TransferService {
     const accounts = await offlineSigner.getAccounts();
     const owner = accounts[0].address;
     const fee: StdFee = {
-      amount: coins(5000000, "ucosm"),
-      gas: "89000000",
+      amount: coins(50000, "ucosm"),
+      gas: "200000",
     };
     const msg: MsgExecuteContract = {
       type: "wasm/MsgExecuteContract",
@@ -257,8 +257,8 @@ export class TransferService {
     const accounts = await offlineSigner.getAccounts();
     const owner = accounts[0].address;
     const fee: StdFee = {
-      amount: coins(5000000, "ucosm"),
-      gas: "89000000",
+      amount: coins(5000, "ucosm"),
+      gas: "182146",
     };
     const msg: MsgExecuteContract = {
       type: "wasm/MsgExecuteContract",
@@ -279,6 +279,26 @@ export class TransferService {
     return client.signAndBroadcast([msg], fee);
   }
 
-
-
+  async withdrawMonster(cont_addr_market: string, offering_id: string): Promise<BroadcastTxResult> {
+    const offlineSigner = window.getOfflineSigner(this.chainId);
+    const accounts = await offlineSigner.getAccounts();
+    const owner = accounts[0].address;
+    const fee: StdFee = {
+      amount: coins(5000, "ucosm"),
+      gas: "165825",
+    };
+    const msg: MsgExecuteContract = {
+      type: "wasm/MsgExecuteContract",
+      value: {
+        sender: owner,
+        contract: cont_addr_market,
+        msg: {
+          withdraw_nft: { offering_id }
+        },
+        sent_funds: [],
+      },
+    };
+    const client = new SigningCosmosClient(environment.lightClient, accounts[0].address, offlineSigner);
+    return client.signAndBroadcast([msg], fee);
+  }
 }
