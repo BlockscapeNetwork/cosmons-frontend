@@ -10,7 +10,7 @@
 <mat-grid-list cols="2" rowHeight="2:1">
   <mat-grid-tile>
     <mat-card>
-      Sell your NFT Token:
+      Sell NFT Token:
       <br>
       <mat-form-field hintLabel="Max 75 characters" appearance="fill">
         <mat-label>Enter NFT Monster Address</mat-label>
@@ -27,6 +27,28 @@
       <br>
       <button mat-button (click)="sell()">
         Sell
+      </button>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-card>
+      Buy NFT Token:
+      <br>
+      <mat-form-field hintLabel="Max 15 characters" appearance="fill">
+        <mat-label>Enter Offering ID</mat-label>
+        <input matInput #buyOfferingId maxlength="15"
+          placeholder="Ex. 1">
+        <mat-hint align="end">{{buyOfferingId.value?.length || 0}}/15</mat-hint>
+      </mat-form-field>
+      <br>
+      <mat-form-field hintLabel="Max 15 characters" appearance="fill">
+        <mat-label>Enter Monster buy Price</mat-label>
+        <input matInput #buyMonsterPrice maxlength="15" placeholder="Ex. 100">
+        <mat-hint align="end">{{buyMonsterPrice.value?.length || 0}}/15</mat-hint>
+      </mat-form-field>
+      <br>
+      <button mat-button (click)="buy()">
+        Buy
       </button>
     </mat-card>
   </mat-grid-tile>

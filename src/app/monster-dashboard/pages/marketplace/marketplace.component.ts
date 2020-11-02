@@ -21,6 +21,8 @@ export class MarketplaceComponent implements OnInit {
   @ViewChild('monsterAddress', { static: true }) monsterAddress: ElementRef;
   @ViewChild('monsterPrice', { static: true }) monsterPrice: ElementRef;
   @ViewChild('offeringId', { static: true }) offeringId: ElementRef;
+  @ViewChild('buyOfferingId', { static: true }) buyOfferingId: ElementRef;
+  @ViewChild('buyMonsterPrice', { static: true }) buyMonsterPrice: ElementRef;
   balance: string;
   offerings: Offer[];
   txOutput: String;
@@ -52,9 +54,27 @@ export class MarketplaceComponent implements OnInit {
         this.getOfferings();
       }).catch((value) => {
         this.txOutput = JSON.stringify(value);
-        console.log('FAIL to sell')
+        console.log('FAILED to sell')
         console.log(JSON.stringify(value))
       });
+  }
+
+  buy(): void {
+    this.transferService.buyMonster(
+      environment.contractAddress20,
+      environment.contractAddressMarket,
+      this.buyMonsterPrice.nativeElement.value,
+      this.buyOfferingId.nativeElement.value
+    ).then((value) => {
+      this.buyMonsterPrice.nativeElement.value = "";
+      this.buyOfferingId.nativeElement.value = "";
+      this.txOutput = JSON.stringify(value);
+      this.getOfferings();
+    }).catch((value) => {
+      this.txOutput = JSON.stringify(value);
+      console.log('FAILED to buy')
+      console.log(JSON.stringify(value))
+    });
   }
 
   withdraw(): void {
@@ -78,7 +98,7 @@ export class MarketplaceComponent implements OnInit {
         this.offerings.push(element);
       });
     }).catch((value) => {
-      console.log('FAIL to get offerings')
+      console.log('FAILED to get offerings')
       console.log(JSON.stringify(value))
     });
   }

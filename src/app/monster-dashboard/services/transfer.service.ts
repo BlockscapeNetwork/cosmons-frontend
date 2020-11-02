@@ -301,4 +301,31 @@ export class TransferService {
     const client = new SigningCosmosClient(environment.lightClient, accounts[0].address, offlineSigner);
     return client.signAndBroadcast([msg], fee);
   }
+
+  async buyMonster(cont_addr_20: string, cont_addr_market: string, amount: string, offering_id: string): Promise<BroadcastTxResult> {
+    const offlineSigner = window.getOfflineSigner(this.chainId);
+    const accounts = await offlineSigner.getAccounts();
+    const owner = accounts[0].address;
+    const fee: StdFee = {
+      amount: coins(10000, "ucosm"),
+      gas: "520146",
+    };
+    const msg: MsgExecuteContract = {
+      type: "wasm/MsgExecuteContract",
+      value: {
+        sender: owner,
+        contract: cont_addr_20,
+        msg: {
+          send: {
+            contract: cont_addr_market,
+            amount: amount,
+            msg: btoa(JSON.stringify({ "offering_id": offering_id }))
+          }
+        },
+        sent_funds: [],
+      },
+    };
+    const client = new SigningCosmosClient(environment.lightClient, accounts[0].address, offlineSigner);
+    return client.signAndBroadcast([msg], fee);
+  }
 }
