@@ -251,4 +251,34 @@ export class TransferService {
     const client = new SigningCosmosClient(environment.lightClient, accounts[0].address, offlineSigner);
     return client.signAndBroadcast([msg], fee);
   }
+
+  async sellMonster(cont_addr_721: string, cont_addr_market: string, cont_addr_20, token_id: string, amount: string): Promise<BroadcastTxResult> {
+    const offlineSigner = window.getOfflineSigner(this.chainId);
+    const accounts = await offlineSigner.getAccounts();
+    const owner = accounts[0].address;
+    const fee: StdFee = {
+      amount: coins(5000000, "ucosm"),
+      gas: "89000000",
+    };
+    const msg: MsgExecuteContract = {
+      type: "wasm/MsgExecuteContract",
+      value: {
+        sender: owner,
+        contract: cont_addr_721,
+        msg: {
+          send_nft: {
+            contract: cont_addr_market,
+            token_id: token_id,
+            msg: btoa(JSON.stringify({ "list_price": { "address": cont_addr_20, "amount": amount } }))
+          }
+        },
+        sent_funds: [],
+      },
+    };
+    const client = new SigningCosmosClient(environment.lightClient, accounts[0].address, offlineSigner);
+    return client.signAndBroadcast([msg], fee);
+  }
+
+
+
 }

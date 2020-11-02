@@ -19,7 +19,19 @@ export class MarketplaceComponent implements OnInit {
         this.balance = value.balance;
       });
     });
+  }
 
+  sell(): void {
+    this.transferService.sellMonster(
+      environment.contractAddress721,
+      environment.contractAddressMarket,
+      environment.contractAddress20,
+      "monster112a9lf95atqvyejqe22xnna8x4mfqd75tkq2kvwcjyysarcsx",
+      "50").then((value) => {
+        console.log(JSON.stringify(value))
+      }).catch((value) => {
+        console.log(JSON.stringify(value))
+      });
   }
 
 }
