@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
   BankBalancesResponse,
   BroadcastMode,
@@ -12,8 +13,15 @@ import {
 } from "@cosmjs/launchpad";
 import { CosmWasmClient, MsgExecuteContract } from '@cosmjs/cosmwasm';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 declare let window: any;
 declare let document: any;
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
 
 export interface ExBankBalancesResponse {
   address: String,
@@ -34,7 +42,7 @@ export class TransferService {
   wasmClient = new CosmWasmClient(environment.lightClient, BroadcastMode.Block)
 
 
-  constructor() {
+  constructor(private http: HttpClient) {
 
     window.onload = async () => {
       // Keplr extension injects the offline signer that is compatible with cosmJS.
@@ -327,5 +335,10 @@ export class TransferService {
     };
     const client = new SigningCosmosClient(environment.lightClient, accounts[0].address, offlineSigner);
     return client.signAndBroadcast([msg], fee);
+  }
+
+  // http requests
+  requestCW20Tokens(address: string): Observable<any> {
+    return this.http.post<any>(environment.cw20faucet, { "address": address }, httpOptions);
   }
 }

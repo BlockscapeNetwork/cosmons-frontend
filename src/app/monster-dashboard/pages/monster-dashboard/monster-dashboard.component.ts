@@ -23,7 +23,10 @@ export interface MonsterInfo {
   styleUrls: ['./monster-dashboard.component.scss']
 })
 export class MonsterDashboardComponent implements OnInit {
-  env_cont = environment.contractAddress721;
+  env_cont721 = environment.contractAddress721;
+  env_cont20 = environment.contractAddress20;
+  env_contMarket = environment.contractAddressMarket;
+  cwBalance: string;
   acc: ExBankBalancesResponse;
   monsterAddr: [];
   monsterInfoArr: MonsterInfo[];
@@ -48,10 +51,21 @@ export class MonsterDashboardComponent implements OnInit {
         });
       }
     });
+    // Fetch cw-20 balance
+    this.getBalance();
 
     // Fetch number of Tokens
     this.transferService.queryNumOfMonster(environment.contractAddress721).then((value) => {
       console.log(JSON.stringify(value))
+    });
+  }
+
+  getBalance(): void {
+    this.transferService.getAccount().then((value) => {
+      const addr = value.address.toString();
+      this.transferService.queryCW20Token(environment.contractAddress20, addr).then((value) => {
+        this.cwBalance = value.balance;
+      });
     });
   }
 

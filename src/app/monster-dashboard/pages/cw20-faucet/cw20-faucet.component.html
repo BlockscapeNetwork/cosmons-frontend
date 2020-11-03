@@ -1,0 +1,26 @@
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile>
+    <mat-card>
+      <mat-form-field hintLabel="Max 75 characters" appearance="fill">
+        <mat-label>Enter Address to get CW-20 Token</mat-label>
+        <input matInput #bechAddress maxlength="75" placeholder="Ex. cosmos1sm0hkulk4nufzq7dszdgv08xns3v8575h5g9ug">
+        <mat-hint align="end">{{bechAddress.value?.length || 0}}/75</mat-hint>
+      </mat-form-field>
+      <br>
+      <button mat-button (click)="requestCW20Token()">
+        Request CW-20 Tokens
+      </button>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-card>
+      CW-20 Tokenbalance:
+      <br>
+      <strong>{{balance}}</strong>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+<br>
+Tx Output:
+<br>
+{{txOutput}}

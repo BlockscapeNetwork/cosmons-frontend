@@ -1,23 +1,55 @@
-<mat-grid-list cols="2" rowHeight="2:1">
+<mat-grid-list cols="1" rowHeight="2:1">
   <mat-grid-tile>
     <mat-card>
       <ol>
-      <li> Open Keplr and import this seed in your wallet:<br>"trophy book hard tree grape museum bone fence harsh mixed air gather" </li>
-      <li> Now your Ready play the Battle </li>
-      <li> Click on "Battle" </li>
-      <li> Choose "monster112awrcsx" </li>
-      <li> Choose "monster112sarcsb" </li>
-      <li> Click "Battle !!!" </li>
+        <li>Use Chrome Browser</li>
+        <li>Install <a
+            href="https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap?hl=en">Keplr</a>
+          Extension</li>
+        <li> Create or Import your Account/Wallet within Keplr Extension (Click on "Keplr" in your Browser Extension
+          Dropdown Menu)</li>
+        <li> Reload this site and allow to connect your Keplr account with hackatom-wasm blockchain (Click "Approve")
+        </li>
+        <li> Click an "Keplr" extension again and check your current selected Chain. It must be "hackatom-wasm" rather
+          than "cosmos"</li>
+        <li> Get some COSM Token from official <a href="https://five.hackatom.org/resources/">Faucet</a>. Scroll down to
+          CosmWasm paste your address from Keplr and click 'Send Tokens'</li>
+        <li> Click on "Keplr" again and check if you received 10COSM Token (wait a few seconds)</li>
+        <li> To buy a NFT Monster on Marketplace you need some CW-20 Token in addtion to the COSM Token</li>
+        <li> Go to the <a [routerLink]="['/home/faucet']">CW-20 Faucet</a> and paste the same address as before to the
+          input field and press "Request CW-20 Tokens"</li>
+        <li> Your CW-20 Tokenbalance is 100</li>
+        <li> Go to <a [routerLink]="['/home/marketplace']">Marketplace</a> and look out for Monsterofferings </li>
+        <li> Is a Monster listed for sale you can buy it (follow the steps in Keplr pop-up window). If you bought a
+          Monster you should see your Wallet address in
+          the Owner Parameter listed below</li>
+        <li> Now you're ready play the Battle </li>
+        <li> Click on "Battle" </li>
+        <li> Choose attacker monster address "monster112awrcsx" or your Monster/NFT ID</li>
+        <li> Choose defender monster address "monster112sarcsb" </li>
+        <li> Click "Battle !!!" (follow the steps in Keplr pop-up window)</li>
+        <li> If you dont like your Monster anymore you can sell it on <a
+            [routerLink]="['/home/marketplace']">Marketplace</a> </li>
+        <li> If nobody want to buy your offered Monster you can withdraw it back</li>
       </ol>
     </mat-card>
   </mat-grid-tile>
+</mat-grid-list>
+<br>
+<mat-grid-list cols="1" rowHeight="2:1">
   <mat-grid-tile>
     <mat-card>
-      Your Contract: {{env_cont}}
+      Your cw721-monsterbattle Contract: {{env_cont721}}
       <br>
-      Account: {{acc?.address}}
+      Your cw20 Contract: {{env_cont20}}
       <br>
-      Balance: {{acc?.balance.result[0].amount}} ucosm
+      Your Marketplace Contract: {{env_contMarket}}
+      <br>
+      Your Keplr Account/Wallet: {{acc?.address}}
+      <br>
+      Your COSM Balance: {{acc?.balance.result[0].amount}} ucosm
+      <br>
+      Your CW-20 Balance: {{cwBalance}} cw-20 Token
     </mat-card>
   </mat-grid-tile>
 </mat-grid-list>

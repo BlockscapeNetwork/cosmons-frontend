@@ -12,11 +12,22 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BattleAreaComponent } from './pages/battle-area/battle-area.component';
 import { MarketplaceComponent } from './pages/marketplace/marketplace.component';
+import { Cw20FaucetComponent } from './pages/cw20-faucet/cw20-faucet.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [MonsterDashboardComponent, MonsterCardComponent, GameOwnerComponent, HowToPlayComponent, BattleAreaComponent, MarketplaceComponent],
+  declarations: [
+    MonsterDashboardComponent,
+    MonsterCardComponent,
+    GameOwnerComponent,
+    HowToPlayComponent,
+    BattleAreaComponent,
+    MarketplaceComponent,
+    Cw20FaucetComponent
+  ],
   imports: [
     CommonModule,
+    HttpClientModule,
     MonsterRoutingModule,
     MatCardModule,
     MatButtonModule,

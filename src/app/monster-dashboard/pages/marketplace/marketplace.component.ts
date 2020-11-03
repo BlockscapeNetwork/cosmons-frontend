@@ -23,7 +23,6 @@ export class MarketplaceComponent implements OnInit {
   @ViewChild('offeringId', { static: true }) offeringId: ElementRef;
   @ViewChild('buyOfferingId', { static: true }) buyOfferingId: ElementRef;
   @ViewChild('buyMonsterPrice', { static: true }) buyMonsterPrice: ElementRef;
-  balance: string;
   offerings: Offer[];
   txOutput: String;
 
@@ -32,13 +31,7 @@ export class MarketplaceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.transferService.getAccount().then((value) => {
-      const addr = value.address.toString();
-      this.transferService.queryCW20Token(environment.contractAddress20, addr).then((value) => {
-        this.balance = value.balance;
-      });
-      this.getOfferings();
-    });
+    this.getOfferings();
   }
 
   sell(): void {
