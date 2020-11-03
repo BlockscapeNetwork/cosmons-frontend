@@ -44,9 +44,9 @@
       <br>
       Your Keplr Account/Wallet: {{acc?.address}}
       <br>
-      Your COSM Balance: {{acc?.balance.result[0].amount}} ucosm
+      Your COSM Balance: {{acc?.balance?.result[0]?.amount || "0"}} ucosm
       <br>
-      Your CW-20 Balance: {{cwBalance}} cw-20 Token
+      Your CW-20 Balance: {{cwBalance || "0"}} cw-20 Token
     </mat-card>
   </mat-grid-tile>
 </mat-grid-list>
