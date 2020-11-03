@@ -38,10 +38,13 @@ export class Cw20FaucetComponent implements OnInit, OnDestroy {
     this.transferService.requestCW20Tokens(this.bechAddress.nativeElement.value).pipe(takeUntil(this.onDestroy)).subscribe(
       (res) => {
         this.getBalance();
-        this.txOutput = JSON.stringify(res);
+        this.bechAddress.nativeElement.value = '';
+        console.log(JSON.stringify(res));
+        this.txOutput = 'success';
       }, (err) => {
         this.getBalance();
-        this.txOutput = JSON.stringify(err);
+        console.log(JSON.stringify(err));
+        this.txOutput = 'error';
       }
     );
   }
