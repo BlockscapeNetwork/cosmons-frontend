@@ -26,6 +26,8 @@ export class MonsterDashboardComponent implements OnInit {
   env_cont721 = environment.contractAddress721;
   env_cont20 = environment.contractAddress20;
   env_contMarket = environment.contractAddressMarket;
+  breakpoint: number;
+  breakpointUpper: string;
   cwBalance: string;
   acc: ExBankBalancesResponse;
   monsterAddr: [];
@@ -35,6 +37,17 @@ export class MonsterDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // resizing
+    this.breakpoint = (window.innerWidth <= 600) ? 1 : 2;
+    if (window.innerWidth <= 500) {
+      this.breakpointUpper = "2:6";
+    } else if (window.innerWidth <= 900 && window.innerWidth > 500) {
+      this.breakpointUpper = "2:3";
+    } else if (window.innerWidth > 900 && window.innerWidth < 1200) {
+      this.breakpointUpper = "2:1";
+    } else {
+      this.breakpointUpper = "2:0.7";
+    }
     // Get AccountDetails
     this.transferService.getAccount().then((value) => { this.acc = value });
     // Fetch all possible contract Token/Monster
@@ -58,6 +71,22 @@ export class MonsterDashboardComponent implements OnInit {
     this.transferService.queryNumOfMonster(environment.contractAddress721).then((value) => {
       console.log(JSON.stringify(value))
     });
+  }
+
+  onResize(event) {
+    this.breakpoint = (event.target.innerWidth <= 600) ? 1 : 2;
+  }
+
+  onResize2(event) {
+    if (event.target.innerWidth <= 500) {
+      this.breakpointUpper = "2:6";
+    } else if (event.target.innerWidth <= 900 && event.target.innerWidth > 500) {
+      this.breakpointUpper = "2:3";
+    } else if (event.target.innerWidth > 900 && event.target.innerWidth < 1200) {
+      this.breakpointUpper = "2:1";
+    } else {
+      this.breakpointUpper = "2:0.7";
+    }
   }
 
   getBalance(): void {

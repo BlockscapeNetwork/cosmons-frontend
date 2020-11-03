@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" rowHeight="2:1">
+<mat-grid-list cols="1" [rowHeight]="breakpointUpper" (window:resize)="onResize2($event)">
   <mat-grid-tile>
     <mat-card>
       <ol>
@@ -34,9 +34,6 @@
       </ol>
     </mat-card>
   </mat-grid-tile>
-</mat-grid-list>
-<br>
-<mat-grid-list cols="1" rowHeight="2:1">
   <mat-grid-tile>
     <mat-card>
       Your cw721-monsterbattle Contract: {{env_cont721}}
@@ -54,7 +51,7 @@
   </mat-grid-tile>
 </mat-grid-list>
 <br>
-<mat-grid-list cols="2" rowHeight="650px">
+<mat-grid-list [cols]="breakpoint" rowHeight="650px" (window:resize)="onResize($event)">
   <mat-grid-tile *ngFor="let monster of monsterInfoArr">
     <app-monster-card [monsterInfo]="monster">
     </app-monster-card>
